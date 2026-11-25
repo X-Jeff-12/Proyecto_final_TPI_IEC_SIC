@@ -1,0 +1,23 @@
+@extends('layouts.app')
+@section('content')
+<h1>Evaluación económica de alternativas</h1><p class="lead">Indicadores calculados automáticamente con los datos del registro contable y los servicios. Se conservan tres métodos de depreciación y flujos antes/después de impuesto.</p>
+<div class="noticia"><b>Supuestos heredados:</b> TMAR {{ $cfg['tmar']??12 }}%, ISR {{ $cfg['isr']??30 }}%, método {{ strtoupper($cfg['metodo_dep']??'lr') }}. El modelo original aplica un ahorro fiscal si la utilidad gravable es negativa; no presupone que ese beneficio sea legalmente aplicable al negocio.</div>
+@foreach($errores as $error)<div class="banner danger">{{ $error }}</div>@endforeach
+@forelse($evals as $e)
+<div class="card"><h2>{{ $e['alt']['nombre'] }}</h2><p>{{ $e['alt']['descripcion'] }}</p><div class="tabline"><span class="tag">{{ $e['alt']['nivel'] }}</span><span class="tag">Vida: {{ $e['n'] }} años</span><span class="tag">Servicio: {{ $e['serv']['nombre'] }}</span></div>
+<div class="grid"><div class="stat"><span>Inversión inicial</span><b>${{ number_format($e['alt']['costo_inicial'],2) }}</b></div><div class="stat"><span>Ingreso o ahorro anual estimado</span><b>${{ number_format($e['ingreso'],2) }}</b></div><div class="stat"><span>Gasto anual</span><b>${{ number_format($e['costo'],2) }}</b></div><div class="stat"><span>Lavados adicionales/año</span><b>{{ number_format($e['lavados_anio'],0) }}</b></div></div>
+<h3>Indicadores antes y después de impuesto</h3>
+<div class="scroll"><table><thead><tr><th>Indicador</th><th class="num">Antes de impuesto</th><th class="num">Después de impuesto</th></tr></thead><tbody>
+@foreach(['vpn'=>'VPN ($)','tir'=>'TIR (fracción; ×100 para %)','caue'=>'CAUE / beneficio anual equivalente ($)','bc'=>'Relación beneficio/costo'] as $k=>$v)
+<tr><td>{{ $v }}</td><td class="num">{{ $e['ai'][$k]===null?'No calculable':number_format($k==='tir'?$e['ai'][$k]*100:$e['ai'][$k],$k==='tir'?2:4).($k==='tir'?'%':'') }}</td><td class="num">{{ $e['di'][$k]===null?'No calculable':number_format($k==='tir'?$e['di'][$k]*100:$e['di'][$k],$k==='tir'?2:4).($k==='tir'?'%':'') }}</td></tr>
+@endforeach</tbody></table></div>
+<h3>Flujos de efectivo</h3><div class="scroll"><table><thead><tr><th>Año</th><th class="num">Antes de impuesto</th><th class="num">Después de impuesto</th></tr></thead><tbody>@foreach($e['flujo_ai'] as $k=>$f)<tr><td>{{ $k }}</td><td class="num">{{ number_format($f,2) }}</td><td class="num">{{ number_format($e['flujo_di'][$k],2) }}</td></tr>@endforeach</tbody></table></div>
+<h3>Vida económica y equilibrio</h3><p>Vida económica estimada del equipo: <b>{{ $e['vida_eco_anio'] }} años</b>; lavados adicionales mínimos al mes para VPN ≥ 0: <b>{{ $e['equilibrio_lavados']===null?'No determinado':number_format($e['equilibrio_lavados'],2) }}</b>.</p>
+<details><summary>Detalle anual después de impuestos</summary><div class="scroll"><table><thead><tr><th>Año</th><th class="num">Ingreso</th><th class="num">Costo</th><th class="num">Depreciación</th><th class="num">Utilidad antes de impuestos</th><th class="num">Impuesto modelado</th><th class="num">FNE</th></tr></thead><tbody>@foreach($e['filas_di'] as $r)<tr><td>{{ $r['anio'] }}</td>@foreach(['ingreso','costo','dep','uai','imp','fne'] as $k)<td class="num">{{ number_format($r[$k],2) }}</td>@endforeach</tr>@endforeach</tbody></table></div></details>
+<details><summary>Cuadros de depreciación (3 métodos)</summary>@foreach($e['deps'] as $dep)<h3>{{ $dep['nombre'] }}</h3><div class="scroll"><table><thead><tr><th>Año</th><th class="num">Depreciación</th><th class="num">Acumulada</th><th class="num">Valor libros</th></tr></thead><tbody>@foreach($dep['cuadro'] as $row)<tr><td>{{ $row['anio'] }}</td><td class="num">{{ number_format($row['dep'],2) }}</td><td class="num">{{ number_format($row['acum'],2) }}</td><td class="num">{{ number_format($row['libro'],2) }}</td></tr>@endforeach</tbody></table></div>@endforeach</details>
+<h3>Origen de los datos</h3>
+@if(isset($e['fuentes']) && count($e['fuentes']))<ul>@foreach($e['fuentes'] as $f)<li><strong>{{ $f->campo }}</strong>: fuente #{{ $f->fuente_id }} · {{ $f->descripcion }} ({{ $f->tipo }})</li>@endforeach</ul>@else<p class="muted">Sin fuentes relacionadas a los campos clave.</p>@endif
+<p class="muted">Véase también <a href="{{ route('fuentes') }}">Evidencias</a> y <a href="{{ route('diagnostico') }}">Diagnóstico</a>. Una entrevista sola no satisface el mínimo de dos fuentes.</p>
+</div>
+@empty<div class="card">No hay alternativas evaluables. <a href="{{ route('catalogo',['modulo'=>'alternativas']) }}">Crear alternativa</a>.</div>@endforelse
+@endsection

@@ -1,0 +1,48 @@
+<?php
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\FuenteController;
+use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\ContabilidadController;
+use App\Http\Controllers\InversionController;
+use App\Http\Controllers\OperacionController;
+use App\Http\Controllers\ReporteController;
+
+Route::get('/login',[AuthController::class,'form'])->name('login');
+Route::post('/login',[AuthController::class,'entrar'])->name('entrar');
+Route::middleware('auth')->group(function(){
+ Route::post('/logout',[AuthController::class,'salir'])->name('logout');
+ Route::get('/',[DashboardController::class,'index'])->name('dashboard');
+ Route::get('/diagnostico',[DashboardController::class,'diagnostico'])->name('diagnostico');
+ Route::get('/empresa',[EmpresaController::class,'index'])->name('empresa');
+ Route::post('/empresa',[EmpresaController::class,'guardar'])->name('empresa.guardar');
+ Route::get('/fuentes',[FuenteController::class,'index'])->name('fuentes');
+ Route::post('/fuentes',[FuenteController::class,'guardar'])->name('fuentes.guardar');
+ Route::get('/fuentes/{id}/archivo',[FuenteController::class,'archivo'])->whereNumber('id')->name('fuentes.archivo');
+ Route::delete('/fuentes/{id}',[FuenteController::class,'borrar'])->whereNumber('id')->name('fuentes.borrar');
+ Route::get('/catalogos/{modulo}',[CatalogoController::class,'index'])->name('catalogo');
+ Route::post('/catalogos/{modulo}',[CatalogoController::class,'guardar'])->name('catalogo.guardar');
+ Route::delete('/catalogos/{modulo}/{id}',[CatalogoController::class,'borrar'])->whereNumber('id')->name('catalogo.borrar');
+ Route::get('/contabilidad/diario',[ContabilidadController::class,'diario'])->name('diario');
+ Route::post('/contabilidad/diario',[ContabilidadController::class,'guardar'])->name('diario.guardar');
+ Route::delete('/contabilidad/diario/{id}',[ContabilidadController::class,'borrar'])->whereNumber('id')->name('diario.borrar');
+ Route::get('/contabilidad/mayor',[ContabilidadController::class,'mayor'])->name('mayor');
+ Route::get('/contabilidad/balanza',[ContabilidadController::class,'balanza'])->name('balanza');
+ Route::get('/contabilidad/hoja',[ContabilidadController::class,'hoja'])->name('hoja');
+ Route::get('/contabilidad/estados',[ContabilidadController::class,'estados'])->name('estados');
+ Route::get('/contabilidad/caja',[ContabilidadController::class,'caja'])->name('caja');
+ Route::get('/costos',[ContabilidadController::class,'costos'])->name('costos');
+ Route::post('/costos/volumen',[ContabilidadController::class,'volumen'])->name('costos.volumen');
+ Route::get('/activos/depreciacion',[InversionController::class,'activosDepreciacion'])->name('activos.depreciacion');
+ Route::get('/inversion/evaluacion',[InversionController::class,'evaluacion'])->name('evaluacion');
+ Route::get('/inversion/comparar',[InversionController::class,'comparar'])->name('comparar');
+ Route::get('/inversion/verificacion',[InversionController::class,'verificacion'])->name('verificacion');
+ Route::post('/inversion/verificacion',[InversionController::class,'guardarVerificacion'])->name('verificacion.guardar');
+ Route::get('/inversion/valor-tiempo',[InversionController::class,'valorTiempo'])->name('valor.tiempo');
+ Route::post('/ventas/contabilizar',[OperacionController::class,'contabilizarVentas'])->name('ventas.contabilizar');
+ Route::get('/reportes',[ReporteController::class,'index'])->name('reportes');
+ Route::get('/historial',[ReporteController::class,'historial'])->name('historial');
+ Route::get('/respaldo/exportar',[ReporteController::class,'respaldo'])->name('respaldo');
+});

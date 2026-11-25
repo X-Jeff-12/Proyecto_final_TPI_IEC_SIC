@@ -1,0 +1,38 @@
+CAR WASH HERNÁNDEZ — INICIO RÁPIDO (Laravel 12 + PostgreSQL)
+
+1) Abre Ubuntu de WSL. Crea una carpeta, descomprime ahí y entra:
+
+   mkdir -p ~/carwash-laravel
+   cd ~/carwash-laravel
+   # Extrae el contenido del ZIP en esta carpeta (o desde el explorador de Windows).
+
+2) Una vez estén aquí los archivos artisan, composer.json y compose.yaml, ejecuta:
+
+   cp .env.example .env
+   docker compose up -d --build
+   docker compose exec app php artisan key:generate
+   docker compose exec app php artisan migrate --seed
+   docker compose exec app php artisan sic:usuario admin@carwash.local Administrador
+   docker compose exec app php artisan optimize:clear
+
+3) Escribe una CONTRASEÑA PROPIA en el comando sic:usuario cuando se solicite.
+
+4) Abre: http://localhost:8090
+   Correo: admin@carwash.local
+   Contraseña: la que tú acabas de crear.
+
+5) Para comprobar los módulos: Panel > Diario > Costos > Alternativas > Evaluación.
+
+6) Para entrar a PostgreSQL desde pgAdmin en Windows:
+   host: localhost; puerto: 5436; base: carwash; usuario: carwash;
+   contraseña: carwash_dev_local (solo desarrollo local).
+
+7) Para parar: docker compose down
+   Para iniciar de nuevo: docker compose up -d
+   ¡NO uses 'docker compose down -v' si tienes información que conservar!
+
+8) La base se crea automáticamente desde las migraciones y se carga con
+   'php artisan migrate --seed'. No importes carwash.db a PostgreSQL manualmente.
+
+Si algún paso falla, conserva el mensaje de error exacto y compártelo para corregirlo.
+Para más detalles y trabajo con GitHub lee README.md.

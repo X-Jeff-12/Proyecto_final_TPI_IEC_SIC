@@ -1,0 +1,1046 @@
+{
+  "config": [
+    {
+      "k": "empresa",
+      "v": "Car Wash Hernández"
+    },
+    {
+      "k": "propietario",
+      "v": "Francisco Hernández"
+    },
+    {
+      "k": "giro",
+      "v": "Servicios de lavado y limpieza de vehículos"
+    },
+    {
+      "k": "decision",
+      "v": "Adquirir una hidrolavadora nueva (Kärcher, 220 V) o conservar la actual"
+    },
+    {
+      "k": "alternativas_txt",
+      "v": "A) Kärcher nueva, cotización 1   B) Kärcher nueva, cotización 2   (base de comparación: conservar la actual)"
+    },
+    {
+      "k": "integrantes_contables",
+      "v": ""
+    },
+    {
+      "k": "integrantes_sistemas",
+      "v": ""
+    },
+    {
+      "k": "resp_contable",
+      "v": ""
+    },
+    {
+      "k": "resp_economico",
+      "v": ""
+    },
+    {
+      "k": "resp_app",
+      "v": "Josué Hernández"
+    },
+    {
+      "k": "contacto",
+      "v": "Francisco Hernández (propietario)"
+    },
+    {
+      "k": "periodo",
+      "v": "Octubre de 2026"
+    },
+    {
+      "k": "periodo_inicio",
+      "v": "2026-10-01"
+    },
+    {
+      "k": "periodo_fin",
+      "v": "2026-10-31"
+    },
+    {
+      "k": "tmar",
+      "v": "12"
+    },
+    {
+      "k": "isr",
+      "v": "30"
+    },
+    {
+      "k": "metodo_dep",
+      "v": "lr"
+    },
+    {
+      "k": "carta_firmada",
+      "v": "0"
+    },
+    {
+      "k": "modo_demo",
+      "v": "0"
+    },
+    {
+      "k": "mo_propietario",
+      "v": ""
+    },
+    {
+      "k": "dias_trabajo",
+      "v": "27"
+    },
+    {
+      "k": "veh_dia_promedio",
+      "v": "9"
+    },
+    {
+      "k": "base_volumen",
+      "v": "promedio"
+    },
+    {
+      "k": "ingreso_bruto_estimado",
+      "v": "1200"
+    },
+    {
+      "k": "ingreso_mes_normal",
+      "v": "1100"
+    },
+    {
+      "k": "ingreso_incluye_aromas",
+      "v": "si"
+    }
+  ],
+  "fuentes": [
+    {
+      "id": 1,
+      "tipo": "entrevista",
+      "descripcion": "Entrevista al propietario sobre la operación de octubre de 2026 (fecha por documentar)",
+      "referencia": "Francisco Hernández, propietario",
+      "fecha": "",
+      "anexo": "A-1",
+      "demo": 0
+    }
+  ],
+  "trazas": [
+    {
+      "id": 1,
+      "entidad": "serv",
+      "ref_id": 1,
+      "campo": "precio",
+      "fuente_id": 1
+    },
+    {
+      "id": 2,
+      "entidad": "serv",
+      "ref_id": 2,
+      "campo": "precio",
+      "fuente_id": 1
+    },
+    {
+      "id": 3,
+      "entidad": "serv",
+      "ref_id": 3,
+      "campo": "precio",
+      "fuente_id": 1
+    },
+    {
+      "id": 4,
+      "entidad": "serv",
+      "ref_id": 4,
+      "campo": "precio",
+      "fuente_id": 1
+    },
+    {
+      "id": 5,
+      "entidad": "serv",
+      "ref_id": 5,
+      "campo": "precio",
+      "fuente_id": 1
+    },
+    {
+      "id": 6,
+      "entidad": "serv",
+      "ref_id": 6,
+      "campo": "precio",
+      "fuente_id": 1
+    },
+    {
+      "id": 7,
+      "entidad": "serv",
+      "ref_id": 7,
+      "campo": "precio",
+      "fuente_id": 1
+    },
+    {
+      "id": 8,
+      "entidad": "serv",
+      "ref_id": 8,
+      "campo": "precio",
+      "fuente_id": 1
+    },
+    {
+      "id": 9,
+      "entidad": "alt",
+      "ref_id": 1,
+      "campo": "costo_inicial",
+      "fuente_id": 1
+    },
+    {
+      "id": 10,
+      "entidad": "alt",
+      "ref_id": 1,
+      "campo": "energia_anual",
+      "fuente_id": 1
+    },
+    {
+      "id": 11,
+      "entidad": "alt",
+      "ref_id": 1,
+      "campo": "ahorro_anual",
+      "fuente_id": 1
+    },
+    {
+      "id": 12,
+      "entidad": "alt",
+      "ref_id": 2,
+      "campo": "costo_inicial",
+      "fuente_id": 1
+    },
+    {
+      "id": 13,
+      "entidad": "alt",
+      "ref_id": 2,
+      "campo": "energia_anual",
+      "fuente_id": 1
+    },
+    {
+      "id": 14,
+      "entidad": "alt",
+      "ref_id": 2,
+      "campo": "ahorro_anual",
+      "fuente_id": 1
+    }
+  ],
+  "cuentas": [
+    {
+      "codigo": "1101",
+      "nombre": "Caja (efectivo)",
+      "tipo": "activo",
+      "naturaleza": "deudora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "1102",
+      "nombre": "Bancos",
+      "tipo": "activo",
+      "naturaleza": "deudora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "1103",
+      "nombre": "Cuentas por cobrar (clientes)",
+      "tipo": "activo",
+      "naturaleza": "deudora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "1104",
+      "nombre": "Inventario de mercadería (aromatizantes)",
+      "tipo": "activo",
+      "naturaleza": "deudora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "1201",
+      "nombre": "Maquinaria y equipo",
+      "tipo": "activo",
+      "naturaleza": "deudora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "1202",
+      "nombre": "Depreciación acumulada",
+      "tipo": "activo",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "2101",
+      "nombre": "Proveedores (cuentas por pagar)",
+      "tipo": "pasivo",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "2102",
+      "nombre": "Sueldos por pagar",
+      "tipo": "pasivo",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "2103",
+      "nombre": "Impuesto sobre la renta por pagar",
+      "tipo": "pasivo",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "3101",
+      "nombre": "Capital aportado por el propietario",
+      "tipo": "patrimonio",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "3102",
+      "nombre": "Retiros del propietario",
+      "tipo": "patrimonio",
+      "naturaleza": "deudora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "3103",
+      "nombre": "Patrimonio de apertura reconstruido (partida de cuadre)",
+      "tipo": "patrimonio",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "4101",
+      "nombre": "Ingresos por servicios de lavado",
+      "tipo": "ingreso",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "4102",
+      "nombre": "Ingresos por servicios adicionales",
+      "tipo": "ingreso",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "4103",
+      "nombre": "Ventas de aromatizantes (productos)",
+      "tipo": "ingreso",
+      "naturaleza": "acreedora",
+      "comportamiento": ""
+    },
+    {
+      "codigo": "5101",
+      "nombre": "Materiales directos (insumos de limpieza)",
+      "tipo": "costo",
+      "naturaleza": "deudora",
+      "comportamiento": "variable"
+    },
+    {
+      "codigo": "5102",
+      "nombre": "Mano de obra directa (trabajadores)",
+      "tipo": "costo",
+      "naturaleza": "deudora",
+      "comportamiento": "variable"
+    },
+    {
+      "codigo": "5103",
+      "nombre": "CIF · Alquiler del local (incluye agua y energía)",
+      "tipo": "costo",
+      "naturaleza": "deudora",
+      "comportamiento": "fijo"
+    },
+    {
+      "codigo": "5104",
+      "nombre": "CIF · Combustible para servicios a domicilio",
+      "tipo": "costo",
+      "naturaleza": "deudora",
+      "comportamiento": "variable"
+    },
+    {
+      "codigo": "5105",
+      "nombre": "CIF · Depreciación de equipos",
+      "tipo": "costo",
+      "naturaleza": "deudora",
+      "comportamiento": "fijo"
+    },
+    {
+      "codigo": "5106",
+      "nombre": "Costo de ventas de aromatizantes",
+      "tipo": "costo",
+      "naturaleza": "deudora",
+      "comportamiento": "variable"
+    },
+    {
+      "codigo": "6101",
+      "nombre": "Internet",
+      "tipo": "gasto",
+      "naturaleza": "deudora",
+      "comportamiento": "fijo"
+    },
+    {
+      "codigo": "6102",
+      "nombre": "Impuesto municipal",
+      "tipo": "gasto",
+      "naturaleza": "deudora",
+      "comportamiento": "fijo"
+    },
+    {
+      "codigo": "6103",
+      "nombre": "Mantenimiento y reparaciones",
+      "tipo": "gasto",
+      "naturaleza": "deudora",
+      "comportamiento": "variable"
+    },
+    {
+      "codigo": "6104",
+      "nombre": "Otros gastos operativos",
+      "tipo": "gasto",
+      "naturaleza": "deudora",
+      "comportamiento": "variable"
+    },
+    {
+      "codigo": "7101",
+      "nombre": "Impuesto sobre la renta (gasto)",
+      "tipo": "gasto",
+      "naturaleza": "deudora",
+      "comportamiento": "variable"
+    }
+  ],
+  "asientos": [
+    {
+      "id": 1,
+      "fecha": "2026-10-01",
+      "descripcion": "Apertura reconstruida: equipos a costo histórico aproximado (375 + 150) contra partida de cuadre; no se registra efectivo inicial porque no está documentado",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "supuesto",
+      "origen": null
+    },
+    {
+      "id": 2,
+      "fecha": "2026-10-31",
+      "descripcion": "Ingresos por servicios de lavado: estimación de trabajo $1,200 menos $120 de aromatizantes (supuesto: el total incluye las ventas de aromatizantes). No es suma de ventas comprobadas",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "supuesto",
+      "origen": null
+    },
+    {
+      "id": 3,
+      "fecha": "2026-10-31",
+      "descripcion": "Compra de 40 aromatizantes tipo pinito a $1.85",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 4,
+      "fecha": "2026-10-31",
+      "descripcion": "Venta de 40 aromatizantes a $3.00 (el propietario indicó que vendió todas las unidades)",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 5,
+      "fecha": "2026-10-31",
+      "descripcion": "Costo de ventas de los 40 aromatizantes vendidos",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 6,
+      "fecha": "2026-10-31",
+      "descripcion": "Alquiler del local (incluye agua y energía)",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 7,
+      "fecha": "2026-10-31",
+      "descripcion": "Internet",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 8,
+      "fecha": "2026-10-31",
+      "descripcion": "Impuesto municipal",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 9,
+      "fecha": "2026-10-31",
+      "descripcion": "Insumos de limpieza: punto medio del rango estimado de $70–80 al mes",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 10,
+      "fecha": "2026-10-31",
+      "descripcion": "Combustible para servicios a domicilio (aprox. $12 al mes)",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 11,
+      "fecha": "2026-10-31",
+      "descripcion": "Mano de obra: trabajador fijo y ocasional, referencia central $280 (rango $272–288)",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 12,
+      "fecha": "2026-10-31",
+      "descripcion": "Reparación del botón de encendido de la aspiradora",
+      "tipo": "normal",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "estimado",
+      "origen": null
+    },
+    {
+      "id": 13,
+      "fecha": "2026-10-31",
+      "descripcion": "Ajuste automático: depreciación mensual en línea recta de los activos registrados (vidas útiles provisionales)",
+      "tipo": "ajuste",
+      "fuente_id": 1,
+      "demo": 0,
+      "nivel": "supuesto",
+      "origen": "auto_dep"
+    }
+  ],
+  "movimientos": [
+    {
+      "id": 1,
+      "asiento_id": 1,
+      "cuenta": "1201",
+      "debe": 525.0,
+      "haber": 0.0
+    },
+    {
+      "id": 2,
+      "asiento_id": 1,
+      "cuenta": "3103",
+      "debe": 0.0,
+      "haber": 525.0
+    },
+    {
+      "id": 3,
+      "asiento_id": 2,
+      "cuenta": "1101",
+      "debe": 1080.0,
+      "haber": 0.0
+    },
+    {
+      "id": 4,
+      "asiento_id": 2,
+      "cuenta": "4101",
+      "debe": 0.0,
+      "haber": 1080.0
+    },
+    {
+      "id": 5,
+      "asiento_id": 3,
+      "cuenta": "1104",
+      "debe": 74.0,
+      "haber": 0.0
+    },
+    {
+      "id": 6,
+      "asiento_id": 3,
+      "cuenta": "1101",
+      "debe": 0.0,
+      "haber": 74.0
+    },
+    {
+      "id": 7,
+      "asiento_id": 4,
+      "cuenta": "1101",
+      "debe": 120.0,
+      "haber": 0.0
+    },
+    {
+      "id": 8,
+      "asiento_id": 4,
+      "cuenta": "4103",
+      "debe": 0.0,
+      "haber": 120.0
+    },
+    {
+      "id": 9,
+      "asiento_id": 5,
+      "cuenta": "5106",
+      "debe": 74.0,
+      "haber": 0.0
+    },
+    {
+      "id": 10,
+      "asiento_id": 5,
+      "cuenta": "1104",
+      "debe": 0.0,
+      "haber": 74.0
+    },
+    {
+      "id": 11,
+      "asiento_id": 6,
+      "cuenta": "5103",
+      "debe": 200.0,
+      "haber": 0.0
+    },
+    {
+      "id": 12,
+      "asiento_id": 6,
+      "cuenta": "1101",
+      "debe": 0.0,
+      "haber": 200.0
+    },
+    {
+      "id": 13,
+      "asiento_id": 7,
+      "cuenta": "6101",
+      "debe": 5.0,
+      "haber": 0.0
+    },
+    {
+      "id": 14,
+      "asiento_id": 7,
+      "cuenta": "1101",
+      "debe": 0.0,
+      "haber": 5.0
+    },
+    {
+      "id": 15,
+      "asiento_id": 8,
+      "cuenta": "6102",
+      "debe": 6.0,
+      "haber": 0.0
+    },
+    {
+      "id": 16,
+      "asiento_id": 8,
+      "cuenta": "1101",
+      "debe": 0.0,
+      "haber": 6.0
+    },
+    {
+      "id": 17,
+      "asiento_id": 9,
+      "cuenta": "5101",
+      "debe": 75.0,
+      "haber": 0.0
+    },
+    {
+      "id": 18,
+      "asiento_id": 9,
+      "cuenta": "1101",
+      "debe": 0.0,
+      "haber": 75.0
+    },
+    {
+      "id": 19,
+      "asiento_id": 10,
+      "cuenta": "5104",
+      "debe": 12.0,
+      "haber": 0.0
+    },
+    {
+      "id": 20,
+      "asiento_id": 10,
+      "cuenta": "1101",
+      "debe": 0.0,
+      "haber": 12.0
+    },
+    {
+      "id": 21,
+      "asiento_id": 11,
+      "cuenta": "5102",
+      "debe": 280.0,
+      "haber": 0.0
+    },
+    {
+      "id": 22,
+      "asiento_id": 11,
+      "cuenta": "1101",
+      "debe": 0.0,
+      "haber": 280.0
+    },
+    {
+      "id": 23,
+      "asiento_id": 12,
+      "cuenta": "6103",
+      "debe": 15.0,
+      "haber": 0.0
+    },
+    {
+      "id": 24,
+      "asiento_id": 12,
+      "cuenta": "1101",
+      "debe": 0.0,
+      "haber": 15.0
+    },
+    {
+      "id": 25,
+      "asiento_id": 13,
+      "cuenta": "5105",
+      "debe": 10.42,
+      "haber": 0.0
+    },
+    {
+      "id": 26,
+      "asiento_id": 13,
+      "cuenta": "1202",
+      "debe": 0.0,
+      "haber": 10.42
+    }
+  ],
+  "servicios": [
+    {
+      "id": 1,
+      "nombre": "Lavado de sedán",
+      "precio": 5.0,
+      "md": 0.3286,
+      "mod": 1.2269,
+      "cif": 0.9746,
+      "lavados_mes": 40.0,
+      "demo": 0,
+      "nivel": "estimado",
+      "peso": 1.0,
+      "es_adicional": 0,
+      "nota": "Precio habitual $5.00."
+    },
+    {
+      "id": 2,
+      "nombre": "Lavado de pickup",
+      "precio": 5.5,
+      "md": 0.3286,
+      "mod": 1.2269,
+      "cif": 0.9746,
+      "lavados_mes": 16.0,
+      "demo": 0,
+      "nivel": "estimado",
+      "peso": 1.0,
+      "es_adicional": 0,
+      "nota": "Rango $5–6: se usa el punto medio (supuesto)."
+    },
+    {
+      "id": 3,
+      "nombre": "Lavado de motocicleta",
+      "precio": 2.5,
+      "md": 0.1643,
+      "mod": 0.6134,
+      "cif": 0.4873,
+      "lavados_mes": 15.0,
+      "demo": 0,
+      "nivel": "estimado",
+      "peso": 0.5,
+      "es_adicional": 0,
+      "nota": "Esfuerzo relativo 0.5 respecto a un sedán: supuesto."
+    },
+    {
+      "id": 4,
+      "nombre": "Lavado de camión",
+      "precio": 17.5,
+      "md": 0.6573,
+      "mod": 2.4537,
+      "cif": 1.9491,
+      "lavados_mes": 3.0,
+      "demo": 0,
+      "nivel": "estimado",
+      "peso": 2.0,
+      "es_adicional": 0,
+      "nota": "Rango $10–25: se usa el punto medio (supuesto). Esfuerzo relativo 2.0: supuesto."
+    },
+    {
+      "id": 5,
+      "nombre": "Pasteado (adicional)",
+      "precio": 1.5,
+      "md": 0.0,
+      "mod": 0.0,
+      "cif": 0.0,
+      "lavados_mes": 15.0,
+      "demo": 0,
+      "nivel": "estimado",
+      "peso": 0.0,
+      "es_adicional": 1,
+      "nota": "Rango $1–2 según tamaño: punto medio (supuesto)."
+    },
+    {
+      "id": 6,
+      "nombre": "Limpieza de motor (adicional)",
+      "precio": 1.0,
+      "md": 0.0,
+      "mod": 0.0,
+      "cif": 0.0,
+      "lavados_mes": 18.0,
+      "demo": 0,
+      "nivel": "estimado",
+      "peso": 0.0,
+      "es_adicional": 1,
+      "nota": "Precio $1.00."
+    },
+    {
+      "id": 7,
+      "nombre": "Lavado de motor, solo diésel (adicional)",
+      "precio": 3.5,
+      "md": 0.0,
+      "mod": 0.0,
+      "cif": 0.0,
+      "lavados_mes": 4.0,
+      "demo": 0,
+      "nivel": "estimado",
+      "peso": 0.0,
+      "es_adicional": 1,
+      "nota": "Rango $3–4: punto medio (supuesto)."
+    },
+    {
+      "id": 8,
+      "nombre": "Recargo por domicilio lejano (adicional)",
+      "precio": 1.0,
+      "md": 0.0,
+      "mod": 0.0,
+      "cif": 0.0,
+      "lavados_mes": 0.0,
+      "demo": 0,
+      "nivel": "pendiente",
+      "peso": 0.0,
+      "es_adicional": 1,
+      "nota": "Aprox. $1 si es lejos; cantidad de octubre pendiente."
+    }
+  ],
+  "activos": [
+    {
+      "id": 1,
+      "nombre": "Hidrolavadora Kärcher (usada, ~2300 PSI, se cree 220 V)",
+      "fecha_adq": "",
+      "costo": 375.0,
+      "vida_util": 5,
+      "valor_salvamento": 0.0,
+      "nivel": "estimado",
+      "nota": "Costo histórico recordado $350–400 (punto medio). Usada en el negocio hace 1.5–2 años. Modelo, voltaje y comprobante pendientes.",
+      "nivel_vida": "supuesto",
+      "dep_acum_previa": 0.0
+    },
+    {
+      "id": 2,
+      "nombre": "Aspiradora y sopladora",
+      "fecha_adq": "",
+      "costo": 150.0,
+      "vida_util": 3,
+      "valor_salvamento": 0.0,
+      "nivel": "estimado",
+      "nota": "Comprada nueva hace 8–9 meses por ~$150. Fecha y comprobante pendientes.",
+      "nivel_vida": "supuesto",
+      "dep_acum_previa": 0.0
+    }
+  ],
+  "alternativas": [
+    {
+      "id": 1,
+      "nombre": "A) Kärcher nueva 220 V · cotización 1 (pendiente)",
+      "descripcion": "Supuesto: extremo inferior del presupuesto del propietario ($400)",
+      "costo_inicial": 400.0,
+      "vida_util": 5,
+      "valor_salvamento": 40.0,
+      "lavados_mes": 0.0,
+      "servicio_id": 1,
+      "energia_anual": 0.0,
+      "mantenimiento_anual": 0.0,
+      "dep_mercado": 0.15,
+      "demo": 0,
+      "ahorro_anual": 25.0,
+      "nivel": "supuesto",
+      "marca_modelo": "Kärcher (modelo por definir)",
+      "voltaje": "220 V",
+      "presion_psi": "",
+      "garantia": "",
+      "notas": ""
+    },
+    {
+      "id": 2,
+      "nombre": "B) Kärcher nueva 220 V · cotización 2 (pendiente)",
+      "descripcion": "Supuesto: extremo superior del presupuesto del propietario ($500)",
+      "costo_inicial": 500.0,
+      "vida_util": 5,
+      "valor_salvamento": 50.0,
+      "lavados_mes": 0.0,
+      "servicio_id": 1,
+      "energia_anual": 0.0,
+      "mantenimiento_anual": 0.0,
+      "dep_mercado": 0.15,
+      "demo": 0,
+      "ahorro_anual": 25.0,
+      "nivel": "supuesto",
+      "marca_modelo": "Kärcher (modelo por definir)",
+      "voltaje": "220 V",
+      "presion_psi": "",
+      "garantia": "",
+      "notas": ""
+    }
+  ],
+  "verificacion_manual": [],
+  "ventas": [],
+  "pagos_personal": [],
+  "pendientes": [],
+  "mantenimientos": [
+    {
+      "id": 1,
+      "fecha": "2026-10-31",
+      "activo_id": 2,
+      "tipo": "Reparación",
+      "costo": 15.0,
+      "descripcion": "Botón de encendido y apagado de la aspiradora (fecha exacta pendiente)",
+      "nivel": "estimado",
+      "asiento_id": 12
+    }
+  ],
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Jabón líquido",
+      "categoria": "insumo",
+      "unidad": "garrafón",
+      "costo": 5.0,
+      "frecuencia_dias": 30.0,
+      "precio_venta": 0.0,
+      "comprado_mes": 0.0,
+      "vendido_mes": 0.0,
+      "nivel": "estimado",
+      "nota": ""
+    },
+    {
+      "id": 2,
+      "nombre": "Desengrasante de llantas",
+      "categoria": "insumo",
+      "unidad": "galón",
+      "costo": 5.0,
+      "frecuencia_dias": 15.0,
+      "precio_venta": 0.0,
+      "comprado_mes": 0.0,
+      "vendido_mes": 0.0,
+      "nivel": "estimado",
+      "nota": ""
+    },
+    {
+      "id": 3,
+      "nombre": "Silicón para tablero",
+      "categoria": "insumo",
+      "unidad": "galón",
+      "costo": 5.0,
+      "frecuencia_dias": 7.0,
+      "precio_venta": 0.0,
+      "comprado_mes": 0.0,
+      "vendido_mes": 0.0,
+      "nivel": "estimado",
+      "nota": ""
+    },
+    {
+      "id": 4,
+      "nombre": "Silicón para llantas",
+      "categoria": "insumo",
+      "unidad": "galón",
+      "costo": 5.0,
+      "frecuencia_dias": 7.0,
+      "precio_venta": 0.0,
+      "comprado_mes": 0.0,
+      "vendido_mes": 0.0,
+      "nivel": "estimado",
+      "nota": ""
+    },
+    {
+      "id": 5,
+      "nombre": "Pasta (pulidor)",
+      "categoria": "insumo",
+      "unidad": "unidad",
+      "costo": 10.0,
+      "frecuencia_dias": 30.0,
+      "precio_venta": 0.0,
+      "comprado_mes": 0.0,
+      "vendido_mes": 0.0,
+      "nivel": "estimado",
+      "nota": ""
+    },
+    {
+      "id": 6,
+      "nombre": "Franelas (paquete de 36)",
+      "categoria": "insumo",
+      "unidad": "paquete",
+      "costo": 24.85,
+      "frecuencia_dias": 60.0,
+      "precio_venta": 0.0,
+      "comprado_mes": 0.0,
+      "vendido_mes": 0.0,
+      "nivel": "estimado",
+      "nota": ""
+    },
+    {
+      "id": 7,
+      "nombre": "Aroma para vehículos",
+      "categoria": "insumo",
+      "unidad": "galón",
+      "costo": 2.0,
+      "frecuencia_dias": 30.0,
+      "precio_venta": 0.0,
+      "comprado_mes": 0.0,
+      "vendido_mes": 0.0,
+      "nivel": "estimado",
+      "nota": ""
+    },
+    {
+      "id": 8,
+      "nombre": "Aceite para hidrolavadora",
+      "categoria": "mantenimiento",
+      "unidad": "unidad",
+      "costo": 10.0,
+      "frecuencia_dias": 90.0,
+      "precio_venta": 0.0,
+      "comprado_mes": 0.0,
+      "vendido_mes": 0.0,
+      "nivel": "estimado",
+      "nota": "Mantenimiento del equipo, no es producto de lavado. El propietario hace el cambio."
+    },
+    {
+      "id": 9,
+      "nombre": "Aromatizante tipo pinito (reventa)",
+      "categoria": "reventa",
+      "unidad": "unidad",
+      "costo": 1.85,
+      "frecuencia_dias": 0.0,
+      "precio_venta": 3.0,
+      "comprado_mes": 40.0,
+      "vendido_mes": 40.0,
+      "nivel": "estimado",
+      "nota": "Octubre: 40 comprados y 40 vendidos."
+    }
+  ],
+  "bitacora": [
+    {
+      "id": 1,
+      "cuando": "2026-11-17 22:07:02",
+      "accion": "Carga inicial",
+      "detalle": "Reconstrucción estimada de octubre de 2026 desde la entrevista"
+    }
+  ]
+}

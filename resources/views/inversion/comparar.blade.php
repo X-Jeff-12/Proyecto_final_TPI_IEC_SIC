@@ -1,0 +1,11 @@
+@extends('layouts.app')
+@section('content')
+<h1>Comparación de alternativas</h1><p class="lead">VPN a horizonte común con reposición y CAUE como beneficio neto anual equivalente. Solo un análisis con datos verificados permite recomendar una compra real.</p>
+@if($comparacion)
+<div class="noticia"><b>Horizonte común:</b> {{ $comparacion['horizonte'] }} años. @if($comparacion['ganador'])La mayor VPN después de impuesto corresponde, con los supuestos actuales, a <b>{{ $comparacion['ganador']['alt']['nombre'] }}</b>. @else Ninguna alternativa tiene VPN después de impuesto positivo en el horizonte común.@endif No representa una recomendación definitiva.</div>
+<div class="scroll"><table><thead><tr><th>Alternativa</th><th>Evidencia</th><th class="num">VPN después impuestos</th><th class="num">VPN horizonte común</th><th class="num">CAUE</th><th class="num">TIR</th><th class="num">B/C</th></tr></thead><tbody>
+@foreach($comparacion['evals'] as $e)<tr><td>{{ $e['alt']['nombre'] }}</td><td><span class="tag">{{ $e['alt']['nivel'] }}</span></td><td class="num">{{ number_format($e['di']['vpn'],2) }}</td><td class="num">{{ number_format($e['vpn_hc_di'],2) }}</td><td class="num">{{ number_format($e['di']['caue'],2) }}</td><td class="num">{{ $e['di']['tir']===null?'N/D':number_format(100*$e['di']['tir'],2).'%' }}</td><td class="num">{{ $e['di']['bc']===null?'N/D':number_format($e['di']['bc'],4) }}</td></tr>@endforeach</tbody></table></div>
+<div class="card"><h2>Interpretación</h2><p>El CAUE mostrado es un <b>beneficio anual neto equivalente</b>: valores mayores son más favorables. La comparación supone que los beneficios netos futuros pueden repetirse durante el horizonte común si hay reposición del activo.</p><p>En los datos originales ambas alternativas tenían <b>0 lavados adicionales por mes</b> y un ahorro anual supuesto de $25. Es importante conseguir cotizaciones reales y justificar el beneficio incremental de cada equipo antes de elegir.</p></div>
+@else<div class="card">No se puede comparar. Verifica que existan alternativas con vidas útiles válidas.</div>@endif
+@foreach($errores as $error)<div class="banner danger">{{ $error }}</div>@endforeach
+@endsection

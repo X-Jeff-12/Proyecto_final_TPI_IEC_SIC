@@ -1,0 +1,33 @@
+services:
+  app:
+    build: .
+    container_name: carwash_laravel_app
+    ports:
+      - "8090:80"
+    volumes:
+      - ./:/var/www/html
+      - carwash_vendor:/var/www/html/vendor
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+  postgres:
+    image: postgres:16-alpine
+    container_name: carwash_postgres
+    environment:
+      POSTGRES_DB: carwash
+      POSTGRES_USER: carwash
+      POSTGRES_PASSWORD: carwash_dev_local
+    ports:
+      - "5436:5432"
+    volumes:
+      - carwash_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U carwash -d carwash"]
+      interval: 5s
+      timeout: 3s
+      retries: 25
+    restart: unless-stopped
+volumes:
+  carwash_pgdata:
+  carwash_vendor:
