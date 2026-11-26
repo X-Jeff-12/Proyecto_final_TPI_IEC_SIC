@@ -50,6 +50,42 @@ class InversionController extends Controller {
   $factores=[];for($k=1;$k<=$n;$k++)$factores[]=['n'=>$k,'pf'=>F::pf($i,$k),'fp'=>F::fp($i,$k),'pa'=>F::pa($i,$k),'ap'=>F::ap($i,$k),'fa'=>F::fa($i,$k),'af'=>F::af($i,$k)];
   return view('inversion.valor-tiempo',compact('p','tasa','n','m','resultados','factores'));
  }
+ public function sensibilidad(){
+  $data=self::calculos();
+  $analisis=[];
+  foreach($data['evals'] as $e){
+   try{
+    $cfg=$data['cfg'];
+    $analisis[]=['nombre'=>$e['alt']['nombre'],'resultado'=>F::sensibilidad((array)$e['alt'],$e['serv'],$cfg)];
+   }catch(\Throwable $ex){$analisis[]=['nombre'=>$e['alt']['nombre'],'error'=>$ex->getMessage()];}
+  }
+  $data['analisis']=$analisis;
+  return view('inversion.sensibilidad',$data);
+ }
+
+ public function reemplazo(){
+  $cfg=\App\Services\ContabilidadService::cfg();
+  $i=(float)($cfg['tmar']??12)/100;
+  $activos=DB::table('activos')->orderBy('id')->get();
+  $alternativas=DB::table('alternativas')->orderBy('id')->get();
+  // Construir retadores desde alternativas: necesitan CAO = energía + mantenimiento
+  $retadores=[];
+  foreach($alternativas as $a){
+   $retadores[]=['nombre'=>$a->nombre,'costo_inicial'=>(float)$a->costo_inicial,'valor_salvamento'=>(float)$a->valor_salvamento,
+    'vida_util'=>(int)$a->vida_util,'cao'=>(float)$a->energia_anual+(float)$a->mantenimiento_anual];
+  }
+  $resultados=[];
+  foreach($activos as $act){
+   $vm=(float)($act->valor_mercado ?? (float)$act->costo * pow(1-0.15,(int)$act->vida_util));
+   $vr=(int)($act->vida_restante ?? max(1,(int)$act->vida_util));
+   $cao=(float)($act->cao_anual ?? 0);
+   $defensor=['nombre'=>$act->nombre,'valor_mercado'=>$vm,'valor_salvamento'=>(float)$act->valor_salvamento,
+    'vida_restante'=>$vr,'cao'=>$cao];
+   try{$resultados[]=F::analizarReemplazo($defensor,$retadores,$i);}catch(\Throwable $e){$resultados[]=['error'=>$e->getMessage(),'defensor'=>$defensor];}
+  }
+  return view('inversion.reemplazo',compact('activos','alternativas','resultados','cfg'));
+ }
+
  public function activosDepreciacion(){
   $activos=[];
   foreach(DB::table('activos')->orderBy('id')->get() as $a){

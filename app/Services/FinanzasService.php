@@ -30,6 +30,103 @@ class FinanzasService
         $pb=self::vpn($i,$b);$pc=self::vpn($i,$c);
         return abs($pc)<1e-12?null:$pb/$pc;
     }
+
+    /* ───── TIRV / MIRR (TIR Verdadera) ─────
+     * Fórmula semana 11:  TIRV = [ Σ Yₙ(1+TIO)^(T−n) / (I₀ + Σ Cₙ(1+k)^(−n)) ]^(1/T) − 1
+     * Yₙ = flujos positivos, Cₙ = flujos negativos.
+     * Los positivos se reinvierten a la TIO; los negativos se financian a la tasa k.
+     */
+    public static function tirv(array $flujos, float $tio, ?float $k = null): ?float {
+        $k = $k ?? $tio;
+        $T = count($flujos) - 1;
+        if ($T < 1) return null;
+        $vfPos = 0.0; $vpNeg = 0.0;
+        foreach ($flujos as $t => $f) {
+            $f = (float)$f;
+            if ($f >= 0) { $vfPos += $f * pow(1 + $tio, $T - $t); }
+            else         { $vpNeg += abs($f) * pow(1 + $k, -$t); }
+        }
+        if ($vpNeg < 1e-12) return null;
+        if ($vfPos < 1e-12) return -1.0;
+        return pow($vfPos / $vpNeg, 1.0 / $T) - 1;
+    }
+
+    /* ───── Análisis de sensibilidad ─────
+     * Varía una variable a la vez (±%) y recalcula VPN, TIR, CAUE.
+     * S = (ΔTIR / TIR_original) / (ΔX / X_original) × 100
+     */
+    public static function sensibilidad(array $alt, array $serv, array $cfg, array $variaciones = [0.10, 0.20]): array {
+        $base = self::evaluar($alt, $serv, $cfg);
+        $baseVPN = $base['di']['vpn']; $baseTIR = $base['di']['tir']; $baseCAUE = $base['di']['caue'];
+        $variables = [
+            'costo_inicial' => 'Inversión inicial ($)',
+            'valor_salvamento' => 'Valor de salvamento ($)',
+            'lavados_mes' => 'Lavados por mes',
+            'ahorro_anual' => 'Ahorro anual ($)',
+            'energia_anual' => 'Energía anual ($)',
+            'mantenimiento_anual' => 'Mantenimiento anual ($)',
+        ];
+        $resultados = []; $maxImpacto = 0; $varMasSensible = '';
+        foreach ($variables as $campo => $etiqueta) {
+            $valorOriginal = (float)($alt[$campo] ?? 0);
+            $filasCampo = [];
+            foreach ($variaciones as $pct) {
+                foreach ([-1, 1] as $signo) {
+                    $delta = $signo * $pct;
+                    $altMod = $alt; $altMod[$campo] = $valorOriginal * (1 + $delta);
+                    try {
+                        $res = self::evaluar($altMod, $serv, $cfg);
+                        $filasCampo[] = ['delta'=>$delta,'valor_mod'=>$altMod[$campo],'vpn'=>$res['di']['vpn'],'tir'=>$res['di']['tir'],'caue'=>$res['di']['caue'],'tirv'=>$res['di']['tirv']??null];
+                    } catch (\Throwable $e) {
+                        $filasCampo[] = ['delta'=>$delta,'valor_mod'=>$altMod[$campo],'vpn'=>null,'tir'=>null,'caue'=>null,'tirv'=>null,'error'=>$e->getMessage()];
+                    }
+                }
+            }
+            $impactoMax = 0;
+            foreach ($filasCampo as $f) { if ($f['vpn'] !== null && abs($baseVPN) > 1e-12) { $imp = abs(($f['vpn'] - $baseVPN) / abs($baseVPN)); if ($imp > $impactoMax) $impactoMax = $imp; } }
+            if ($impactoMax > $maxImpacto) { $maxImpacto = $impactoMax; $varMasSensible = $campo; }
+            $resultados[$campo] = ['etiqueta'=>$etiqueta,'original'=>$valorOriginal,'filas'=>$filasCampo,'impacto'=>$impactoMax];
+        }
+        // También sensibilidad de la TMAR
+        $tmarOrig = (float)($cfg['tmar'] ?? 12);
+        $filasTMAR = [];
+        foreach ($variaciones as $pct) {
+            foreach ([-1, 1] as $signo) {
+                $delta = $signo * $pct;
+                $cfgMod = $cfg; $cfgMod['tmar'] = $tmarOrig * (1 + $delta);
+                try { $res = self::evaluar($alt, $serv, $cfgMod); $filasTMAR[] = ['delta'=>$delta,'valor_mod'=>$cfgMod['tmar'],'vpn'=>$res['di']['vpn'],'tir'=>$res['di']['tir'],'caue'=>$res['di']['caue'],'tirv'=>$res['di']['tirv']??null]; }
+                catch (\Throwable $e) { $filasTMAR[] = ['delta'=>$delta,'valor_mod'=>$cfgMod['tmar'],'vpn'=>null,'tir'=>null,'caue'=>null,'tirv'=>null,'error'=>$e->getMessage()]; }
+            }
+        }
+        $impTMAR = 0;
+        foreach ($filasTMAR as $f) { if ($f['vpn'] !== null && abs($baseVPN) > 1e-12) { $imp = abs(($f['vpn'] - $baseVPN) / abs($baseVPN)); if ($imp > $impTMAR) $impTMAR = $imp; } }
+        if ($impTMAR > $maxImpacto) { $varMasSensible = 'tmar'; }
+        $resultados['tmar'] = ['etiqueta'=>'TMAR (%)','original'=>$tmarOrig,'filas'=>$filasTMAR,'impacto'=>$impTMAR];
+        return ['base'=>['vpn'=>$baseVPN,'tir'=>$baseTIR,'caue'=>$baseCAUE],'variables'=>$resultados,'mas_sensible'=>$varMasSensible];
+    }
+
+    /* ───── Defensor vs. retador (análisis de reemplazo) ─────
+     * El defensor usa su valor de MERCADO (no valor en libros) como inversión.
+     * CAUE = P(A/P,i,n) − VS(A/F,i,n) + CAO
+     * Se elige la alternativa con menor CAUE (costo).
+     */
+    public static function caueReemplazo(float $valorMercado, float $vs, int $vida, float $cao, float $i): float {
+        return $valorMercado * self::ap($i, $vida) - $vs * self::af($i, $vida) + $cao;
+    }
+
+    public static function analizarReemplazo(array $defensor, array $retadores, float $i): array {
+        $caueD = self::caueReemplazo((float)$defensor['valor_mercado'], (float)$defensor['valor_salvamento'], (int)$defensor['vida_restante'], (float)$defensor['cao'], $i);
+        $res = ['defensor' => array_merge($defensor, ['caue' => $caueD]), 'retadores' => []];
+        $mejorCAUE = $caueD; $mejorNombre = $defensor['nombre'] ?? 'Defensor (conservar actual)';
+        foreach ($retadores as $r) {
+            $caueR = self::caueReemplazo((float)$r['costo_inicial'], (float)$r['valor_salvamento'], (int)$r['vida_util'], (float)$r['cao'], $i);
+            $res['retadores'][] = array_merge($r, ['caue' => $caueR]);
+            if ($caueR < $mejorCAUE) { $mejorCAUE = $caueR; $mejorNombre = $r['nombre']; }
+        }
+        $res['decision'] = $mejorNombre;
+        $res['conviene_reemplazar'] = ($mejorCAUE < $caueD);
+        return $res;
+    }
     public static function depreciacion(string $metodo,float $c,float $s,int $n): array {
         if($n<1||$s>$c||$c<0||$s<0)throw new \InvalidArgumentException('Costo, salvamento o vida útil inválidos');
         $out=[];
@@ -102,12 +199,13 @@ class FinanzasService
             return self::vpn($i,$fl);
         };
         $v0=$obtener(0);$pend=$obtener(1)-$v0;
+        $kFin = (float)($cfg['tasa_financiamiento'] ?? $cfg['tmar'] ?? 12) / 100;
         return ['alt'=>$alt,'serv'=>$serv,'i'=>$i,'t'=>$t,'n'=>$n,'ahorro'=>$ahorro,
             'equilibrio_lavados'=>$pend<=0?null:max(0,-$v0/$pend),
             'ingreso'=>$ing,'costo'=>$costo,'cv_unit'=>$cv,'lavados_anio'=>$lav,
             'deps'=>$deps,'metodo'=>$metodo,'flujo_ai'=>$ai,'flujo_di'=>$di,'filas_di'=>$filas,
-            'ai'=>['vpn'=>self::vpn($i,$ai),'tir'=>self::tir($ai),'caue'=>self::caue($i,$ai),'bc'=>self::bc($i,$benAI,$cosAI)],
-            'di'=>['vpn'=>self::vpn($i,$di),'tir'=>self::tir($di),'caue'=>self::caue($i,$di),'bc'=>self::bc($i,$benDI,$cosDI)],
+            'ai'=>['vpn'=>self::vpn($i,$ai),'tir'=>self::tir($ai),'caue'=>self::caue($i,$ai),'bc'=>self::bc($i,$benAI,$cosAI),'tirv'=>self::tirv($ai,$i,$kFin)],
+            'di'=>['vpn'=>self::vpn($i,$di),'tir'=>self::tir($di),'caue'=>self::caue($i,$di),'bc'=>self::bc($i,$benDI,$cosDI),'tirv'=>self::tirv($di,$i,$kFin)],
             'vida_eco'=>$ve,'vida_eco_anio'=>$veAnio];
     }
     private static function gcd(int $a,int $b): int {while($b!==0){[$a,$b]=[$b,$a%$b];}return $a;}

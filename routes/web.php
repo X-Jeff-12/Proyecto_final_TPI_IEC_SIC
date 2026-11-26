@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function(){
  Route::get('/inversion/comparar',[InversionController::class,'comparar'])->name('comparar');
  Route::get('/inversion/verificacion',[InversionController::class,'verificacion'])->name('verificacion');
  Route::post('/inversion/verificacion',[InversionController::class,'guardarVerificacion'])->name('verificacion.guardar');
+ Route::get('/inversion/sensibilidad',[InversionController::class,'sensibilidad'])->name('sensibilidad');
+ Route::get('/inversion/reemplazo',[InversionController::class,'reemplazo'])->name('reemplazo');
  Route::get('/inversion/valor-tiempo',[InversionController::class,'valorTiempo'])->name('valor.tiempo');
  Route::post('/ventas/contabilizar',[OperacionController::class,'contabilizarVentas'])->name('ventas.contabilizar');
  Route::get('/reportes',[ReporteController::class,'index'])->name('reportes');

@@ -48,6 +48,8 @@
    <a class="nav" href="{{ route('evaluacion') }}">Evaluación económica</a>
    <a class="nav" href="{{ route('comparar') }}">Comparación</a>
    <a class="nav" href="{{ route('activos.depreciacion') }}">Depreciación</a>
+   <a class="nav {{ request()->routeIs('sensibilidad')?'on':'' }}" href="{{ route('sensibilidad') }}">Sensibilidad</a>
+   <a class="nav {{ request()->routeIs('reemplazo')?'on':'' }}" href="{{ route('reemplazo') }}">Defensor vs. retador</a>
    <a class="nav" href="{{ route('verificacion') }}">Verificación cruzada</a>
    <a class="nav" href="{{ route('valor.tiempo') }}">Valor del dinero</a>
   </div>
