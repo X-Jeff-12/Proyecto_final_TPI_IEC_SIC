@@ -38,7 +38,7 @@
 @endforeach
 </div>
 @if(isset(config('sic.campos_traza')[$modulo]))
-<div class="card" style="background:#f0f7fb"><h3>Fuentes relacionadas con cada dato</h3><p class="muted">Selecciona dos documentos distintos si los tienes. Mantén sin seleccionar los datos aún no respaldados.</p>
+<div class="card source-fields"><h3>Fuentes relacionadas con cada dato</h3><p class="muted">Selecciona dos documentos distintos si los tienes. Mantén sin seleccionar los datos aún no respaldados.</p>
 <input type="hidden" name="_edit_fuentes" value="1">
 <div class="f">
 @foreach(config("sic.campos_traza.{$modulo}") as $campo)

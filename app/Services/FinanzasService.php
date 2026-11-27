@@ -32,7 +32,8 @@ class FinanzasService
     }
 
     /* ───── TIRV / MIRR (TIR Verdadera) ─────
-     * Fórmula semana 11:  TIRV = [ Σ Yₙ(1+TIO)^(T−n) / (I₀ + Σ Cₙ(1+k)^(−n)) ]^(1/T) − 1
+    Material de la semana 11
+     * Fórmula:  TIRV = [ Σ Yₙ(1+TIO)^(T−n) / (I₀ + Σ Cₙ(1+k)^(−n)) ]^(1/T) − 1
      * Yₙ = flujos positivos, Cₙ = flujos negativos.
      * Los positivos se reinvierten a la TIO; los negativos se financian a la tasa k.
      */
